@@ -1,7 +1,10 @@
-import java.io.FileWriter;
+
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,46 +25,62 @@ public class Training {
         String className = "Training";
         ArrayList<String> menue = new ArrayList<String>();
 
-        menue.add("Training hinzufuegen");
+        menue.add("Trainingspunkt hinzufuegen");
+        menue.add("Trainingspunkte einsehen");
         menue.add("Programm beenden");
 
         new Lib_Dialog().start(menue, className);
 
     }
 
-    public void Traininghinzufuegen() {
+    public void Trainingspunkthinzufuegen() throws ClassNotFoundException {
 
         try {
 
-            FileWriter myWriter = new FileWriter("Training.txt", true);
+            System.out.print("\nName des Trainings: ");
+            String name = input.nextLine();
+            System.out.print("\nEinheit angeben:");
+            String einheit = input.nextLine();
 
-            String ausgabe = "";
+            ArrayList<Object> training = new ArrayList<Object>();
 
-            ArrayList<String> training = new ArrayList<String>();
+            Session session = new Session(name, einheit);
 
-            training.add("Anzahl Push-Up: ");
-            training.add("Anzahl Sit-Up ");
-            training.add("Anzahl Squat: ");
-            training.add("Anzahl Pull-Up: ");
+            training.add(session);
 
-            myWriter.write(
-                    String.format("Datum: %s Uhrzeit: %s\n", LocalDate.now().toString(), LocalTime.now().toString()));
+            FileOutputStream fos = new FileOutputStream("Trainings.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            for (String string : training) {
-
-                System.out.print(string.toString());
-                int zahl = input.nextInt();
-
-                ausgabe = String.format("%s %d\n", string, zahl);
-
-                myWriter.write(ausgabe);
-
+            for (Object object : training) {
+                oos.writeObject(object);
             }
-            myWriter.write("\n");
-            myWriter.close();
+
+            oos.close();
         } catch (IOException e) {
+
         }
 
+    }
+
+    public ArrayList<Object> Trainingspunkteeinsehen() throws IOException, ClassNotFoundException {
+        try {
+            FileInputStream fis = new FileInputStream("Trainings.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            ArrayList<Object> training = new ArrayList<Object>();
+
+            Object object;
+
+            while ((object = (Object) ois.readObject()) != null) {
+                training.add(object);
+
+            }
+            ois.close();
+            return training;
+        } catch (EOFException e) {
+            System.out.println("");
+        }
+        return null;
     }
 
     public void Programmbeenden() {
