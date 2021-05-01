@@ -7,14 +7,8 @@ public class Session implements Serializable {
     private String name;
     private String einheit;
     private int menge;
-
-    public Session(String name, String einheit, int menge) {
-
-        setName(name);
-        setEinheit(einheit);
-        setMenge(menge);
-
-    }
+    private String date;
+    private String time;
 
     public Session(String name, String einheit) {
 
@@ -46,8 +40,24 @@ public class Session implements Serializable {
         this.menge = menge;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s %s", getName(), getEinheit());
+        return String.format("%s %d %s", getName(), getMenge(), getEinheit());
     }
 }

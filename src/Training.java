@@ -1,16 +1,14 @@
-
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Training {
 
     private static Scanner input;
+    ArrayList<Session> training;
 
     public void start() {
 
@@ -27,6 +25,7 @@ public class Training {
 
         menue.add("Trainingspunkt hinzufuegen");
         menue.add("Trainingspunkte einsehen");
+        menue.add("Session hinzufuegen");
         menue.add("Programm beenden");
 
         new Lib_Dialog().start(menue, className);
@@ -35,52 +34,33 @@ public class Training {
 
     public void Trainingspunkthinzufuegen() throws ClassNotFoundException {
 
-        try {
+        ArrayList<Session> training = new ArrayList<Session>();
 
-            System.out.print("\nName des Trainings: ");
-            String name = input.nextLine();
-            System.out.print("\nEinheit angeben:");
-            String einheit = input.nextLine();
+        System.out.print("\nName des Trainings: ");
+        String name = input.nextLine();
+        System.out.print("\nEinheit angeben:");
+        String einheit = input.nextLine();
 
-            ArrayList<Object> training = new ArrayList<Object>();
+        Session session = new Session(name, einheit);
+        training.add(session);
+    }
 
-            Session session = new Session(name, einheit);
-
-            training.add(session);
-
-            FileOutputStream fos = new FileOutputStream("Trainings.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            for (Object object : training) {
-                oos.writeObject(object);
-            }
-
-            oos.close();
-        } catch (IOException e) {
-
-        }
+    public void Trainingspunkteeinsehen() {
 
     }
 
-    public ArrayList<Object> Trainingspunkteeinsehen() throws IOException, ClassNotFoundException {
-        try {
-            FileInputStream fis = new FileInputStream("Trainings.txt");
-            ObjectInputStream ois = new ObjectInputStream(fis);
+    public void Sessionhinzufuegen(ArrayList<Session> training) {
 
-            ArrayList<Object> training = new ArrayList<Object>();
+        Lib_Dialog.printMenue(training);
+        int option = Lib_Dialog.chooseOption();
 
-            Object object;
+        Session session = new Session(training.get(option - 1).getName(), training.get(option - 1).getEinheit());
+        session.setDate(LocalDate.now().toString());
+        session.setTime(LocalTime.now().toString());
 
-            while ((object = (Object) ois.readObject()) != null) {
-                training.add(object);
+        System.out.print("Dauer: ");
+        double dauer = input.nextDouble();
 
-            }
-            ois.close();
-            return training;
-        } catch (EOFException e) {
-            System.out.println("");
-        }
-        return null;
     }
 
     public void Programmbeenden() {

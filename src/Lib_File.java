@@ -31,10 +31,7 @@ public class Lib_File {
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        for (Object object : objects) {
-
-            oos.writeObject(object);
-        }
+        oos.writeObject(objects);
 
         oos.close();
         fos.close();
