@@ -6,14 +6,12 @@ public class Session implements Serializable {
 
     private String name;
     private String einheit;
-    private int menge;
+    private double menge;
     private String date;
     private String time;
 
-    public Session(String name, String einheit) {
-
+    public Session(String name) {
         setName(name);
-        setEinheit(einheit);
     }
 
     public String getName() {
@@ -32,11 +30,11 @@ public class Session implements Serializable {
         this.einheit = einheit;
     }
 
-    public int getMenge() {
+    public double getMenge() {
         return menge;
     }
 
-    public void setMenge(int menge) {
+    public void setMenge(double menge) {
         this.menge = menge;
     }
 
