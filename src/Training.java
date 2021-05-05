@@ -7,21 +7,21 @@ import java.util.Scanner;
 
 public class Training {
 
-    private static ArrayList<Object> training;
-    private static ArrayList<Object> sessions;
+    private static ArrayList<Object> activity;
+    private static ArrayList<Object> log;
 
     private static Scanner input;
-    private final static String trainingfile = "Training.dat";
-    private final static String sessionfile = "Session.dat";
+    private final static String trainingfile = "Activity.dat";
+    private final static String sessionfile = "Log.dat";
 
     public void start() throws FileNotFoundException, ClassNotFoundException, IOException {
 
         input = new Scanner(System.in);
         if (Lib_File.isExistentAndReadibleBoolean(trainingfile)) {
-            training = Lib_File.deserializeObjects(trainingfile);
+            activity = Lib_File.deserializeObjects(trainingfile);
         }
         if (Lib_File.isExistentAndReadibleBoolean(sessionfile)) {
-            sessions = Lib_File.deserializeObjects(sessionfile);
+            log = Lib_File.deserializeObjects(sessionfile);
         }
 
     }
@@ -33,31 +33,31 @@ public class Training {
         String className = "Training";
         ArrayList<String> menue = new ArrayList<String>();
 
-        menue.add("Trainingspunkt hinzufuegen");
-        menue.add("Trainingspunkte einsehen");
-        menue.add("Session hinzufuegen");
-        menue.add("Programm beenden");
+        menue.add("Add Activity");
+        menue.add("Log Activity");
+        menue.add("Show Activity Log");
+        menue.add("Exit");
 
         new Lib_Dialog().start(menue, className);
 
     }
 
-    public void Trainingspunkthinzufuegen() throws ClassNotFoundException, IOException {
+    public void AddActivity() throws ClassNotFoundException, IOException {
 
-        System.out.print("\nName des Trainings: ");
+        System.out.print("\nName of Activity: ");
         String name = input.nextLine();
 
         Session session = new Session(name);
-        training.add(session);
+        activity.add(session);
 
-        Lib_File.serializeArrayList(training, trainingfile);
+        Lib_File.serializeArrayList(activity, trainingfile);
     }
 
-    public void Trainingspunkteeinsehen() {
+    public void ShowActivityLog() {
 
     }
 
-    public void Sessionhinzufuegen(ArrayList<Session> training) {
+    public void LogActivity(ArrayList<Session> training) throws IOException {
 
         Lib_Dialog.printMenue(training);
         int option = Lib_Dialog.chooseOption();
@@ -66,16 +66,19 @@ public class Training {
         session.setDate(LocalDate.now().toString());
         session.setTime(LocalTime.now().toString());
 
-        System.out.print("Einheit:");
-        session.setEinheit(input.nextLine());
+        System.out.print("Unit:");
+        session.setUnit(input.nextLine());
 
-        System.out.print("Dauer: ");
-        session.setMenge(input.nextDouble());
+        System.out.print("Duration: ");
+        session.setDuration(input.nextDouble());
 
+        log.add(session);
+
+        Lib_File.serializeArrayList(log, sessionfile);
     }
 
-    public void Programmbeenden() {
-        System.out.println("Programm beendet");
+    public void Exit() {
+        System.out.println("End");
         System.exit(0);
     }
 

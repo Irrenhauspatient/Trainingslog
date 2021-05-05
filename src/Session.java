@@ -5,8 +5,8 @@ public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
-    private String einheit;
-    private double menge;
+    private String unit;
+    private double duration;
     private String date;
     private String time;
 
@@ -22,20 +22,20 @@ public class Session implements Serializable {
         this.name = name;
     }
 
-    public String getEinheit() {
-        return einheit;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setEinheit(String einheit) {
-        this.einheit = einheit;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public double getMenge() {
-        return menge;
+    public double getDuration() {
+        return duration;
     }
 
-    public void setMenge(double menge) {
-        this.menge = menge;
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
     public String getDate() {
@@ -56,6 +56,6 @@ public class Session implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s %d %s", getName(), getMenge(), getEinheit());
+        return String.format("%s %s %s ", getDate(), getTime(), getName(), getDuration(), getUnit());
     }
 }
