@@ -55,7 +55,7 @@ public class Training {
         Session session = new Session(name);
         activity.add(session);
 
-        Lib_File.serializeArrayList(activity, activityfile);
+        Lib_File.serialize(activity, activityfile);
     }
 
     public void LogActivity() throws IOException {
@@ -75,7 +75,7 @@ public class Training {
 
         log.add(session);
 
-        Lib_File.serializeArrayList(log, sessionfile);
+        Lib_File.serialize(log, sessionfile);
     }
 
     public void ShowActivityLog() {
@@ -103,11 +103,13 @@ public class Training {
 
     public void Exit() throws IOException {
 
-        Lib_File.serializeArrayList(activity, activityfile);
-        Lib_File.serializeArrayList(log, sessionfile);
+        Lib_File.serialize(activity, activityfile);
+        Lib_File.serialize(log, sessionfile);
 
         System.out.println("End");
         System.exit(0);
     }
+
+    // TODO fix classcast problem
 
 }

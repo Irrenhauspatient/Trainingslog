@@ -29,7 +29,20 @@ public class Lib_File {
         return objects;
     }
 
-    public static <T> File serializeArrayList(ArrayList<T> objects, String filename) throws IOException {
+    public static <T> void serialize(T object, String filename) throws IOException {
+
+        File file = new File(filename);
+
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(object);
+
+        oos.close();
+        fos.close();
+    }
+
+    public static <T> void serializeArrayList(ArrayList<T> objects, String filename) throws IOException {
 
         File file = new File(filename);
 
@@ -40,8 +53,6 @@ public class Lib_File {
 
         oos.close();
         fos.close();
-
-        return file;
     }
 
     public static ArrayList<String> readLinebyLine(String filename) throws IOException {
