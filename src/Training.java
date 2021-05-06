@@ -19,9 +19,13 @@ public class Training {
         input = new Scanner(System.in);
         if (Lib_File.isExistentAndReadibleBoolean(trainingfile)) {
             activity = Lib_File.deserializeObjects(trainingfile);
+        } else {
+            activity = new ArrayList<Object>();
         }
         if (Lib_File.isExistentAndReadibleBoolean(sessionfile)) {
             log = Lib_File.deserializeObjects(sessionfile);
+        } else {
+            log = new ArrayList<Object>();
         }
 
     }
@@ -36,6 +40,7 @@ public class Training {
         menue.add("Add Activity");
         menue.add("Log Activity");
         menue.add("Show Activity Log");
+        menue.add("Edit Activity");
         menue.add("Exit");
 
         new Lib_Dialog().start(menue, className);
@@ -53,16 +58,12 @@ public class Training {
         Lib_File.serializeArrayList(activity, trainingfile);
     }
 
-    public void ShowActivityLog() {
+    public void LogActivity() throws IOException {
 
-    }
-
-    public void LogActivity(ArrayList<Session> training) throws IOException {
-
-        Lib_Dialog.printMenue(training);
+        Lib_Dialog.printMenue(activity);
         int option = Lib_Dialog.chooseOption();
 
-        Session session = new Session(training.get(option - 1).getName());
+        Session session = new Session(activity.get(option - 1).toString());
         session.setDate(LocalDate.now().toString());
         session.setTime(LocalTime.now().toString());
 
@@ -75,6 +76,20 @@ public class Training {
         log.add(session);
 
         Lib_File.serializeArrayList(log, sessionfile);
+    }
+
+    public void ShowActivityLog() {
+        Lib_Dialog.printMenue(activity);
+    }
+
+    public void EditActivity() {
+        Lib_Dialog.printMenue(activity);
+
+        System.out.print("Wich one you desire to edit? :");
+        int option = input.nextInt();
+
+        System.out.print("\nEnter new Name:");
+        // TODO: find a idea to rename or replace the object
     }
 
     public void Exit() {

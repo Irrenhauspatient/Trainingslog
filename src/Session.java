@@ -56,6 +56,6 @@ public class Session implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s ", getDate(), getTime(), getName(), getDuration(), getUnit());
+        return this.getName();
     }
 }
