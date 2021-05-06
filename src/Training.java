@@ -80,6 +80,14 @@ public class Training {
 
     public void ShowActivityLog() {
         Lib_Dialog.printMenue(activity);
+        int option = Lib_Dialog.chooseOption();
+
+        log.forEach((p) -> {
+            if (p.getName().equals(activity.get(option - 1).getName())) {
+                System.out.println(p);
+            } // TODO test this
+        });
+
     }
 
     public void EditActivity() throws IOException {
