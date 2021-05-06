@@ -12,24 +12,24 @@ import java.util.ArrayList;
 
 public class Lib_File {
 
-    public static ArrayList<?> deserializeObjects(String filename) throws IOException, ClassNotFoundException {
+    public static <T> ArrayList<T> deserializeObjects(String filename) throws IOException, ClassNotFoundException {
 
-        ArrayList<?> objects = new ArrayList<>();
+        ArrayList<T> objects = new ArrayList<>();
 
         File file = new File(filename);
 
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
 
-        objects.add((Object) ois.readObject());
+        objects.add((T) ois.readObject());
 
         ois.close();
         fis.close();
-        // TODO find a fix for that shit
+
         return objects;
     }
 
-    public static <T> File serializeArrayList(ArrayList<?> objects, String filename) throws IOException {
+    public static <T> File serializeArrayList(ArrayList<T> objects, String filename) throws IOException {
 
         File file = new File(filename);
 

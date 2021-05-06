@@ -11,19 +11,19 @@ public class Training {
     private static ArrayList<Session> log;
 
     private static Scanner input;
-    private final static String trainingfile = "Activity.dat";
+    private final static String activityfile = "Activity.dat";
     private final static String sessionfile = "Log.dat";
 
     public void start() throws FileNotFoundException, ClassNotFoundException, IOException {
 
         input = new Scanner(System.in);
-        if (Lib_File.isExistentAndReadibleBoolean(trainingfile)) {
-            activity = (ArrayList<Object>) Lib_File.deserializeObjects(trainingfile);
+        if (Lib_File.isExistentAndReadibleBoolean(activityfile)) {
+            activity = (ArrayList) Lib_File.deserializeObjects(activityfile);
         } else {
             activity = new ArrayList<Object>();
         }
         if (Lib_File.isExistentAndReadibleBoolean(sessionfile)) {
-            log = (ArrayList<Session>) Lib_File.deserializeObjects(sessionfile);
+            log = (ArrayList) Lib_File.deserializeObjects(sessionfile);
         } else {
             log = new ArrayList<Session>();
         }
@@ -55,7 +55,7 @@ public class Training {
         Session session = new Session(name);
         activity.add(session);
 
-        Lib_File.serializeArrayList(activity, trainingfile);
+        Lib_File.serializeArrayList(activity, activityfile);
     }
 
     public void LogActivity() throws IOException {
@@ -85,20 +85,27 @@ public class Training {
     public void EditActivity() {
         Lib_Dialog.printMenue(activity);
 
-        System.out.print("Wich one you desire to edit? :");
-        int option = input.nextInt();
+        System.out.println("Wich one you desire to edit? :");
 
-        System.out.print("\nEnter new Name:");
-        String name = input.nextLine();
-        Session session = new Session(name);
+        int menuepunkt = Lib_Dialog.chooseOption();
 
-        activity.remove(option - 1);
-        log.forEach((p) -> p.setName(name));
+        System.out.println("Enter new Name:");
 
-        // TODO: find a idea to rename or replace the object
+        String names = input.nextLine();
+
+        Session session = new Session(names);
+
+        activity.set(menuepunkt - 1, session);
+
+        log.forEach((p) -> p.setName(names));
+
     }
 
-    public void Exit() {
+    public void Exit() throws IOException {
+
+        Lib_File.serializeArrayList(activity, activityfile);
+        Lib_File.serializeArrayList(log, sessionfile);
+
         System.out.println("End");
         System.exit(0);
     }
