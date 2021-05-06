@@ -84,7 +84,7 @@ public class Training {
 
         log.forEach((p) -> {
             if (p.getName().equals(activity.get(option - 1).getName())) {
-                System.out.println(p);
+                System.out.println(p.toString());
             } // TODO test this
         });
 
