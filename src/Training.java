@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Training {
 
-    private static ArrayList<Object> activity;
+    private static ArrayList<Session> activity;
     private static ArrayList<Session> log;
 
     private static Scanner input;
@@ -18,12 +18,12 @@ public class Training {
 
         input = new Scanner(System.in);
         if (Lib_File.isExistentAndReadibleBoolean(activityfile)) {
-            activity = (ArrayList) Lib_File.deserializeObjects(activityfile);
+            activity = (ArrayList<Session>) Lib_File.deserialize(activityfile);
         } else {
-            activity = new ArrayList<Object>();
+            activity = new ArrayList<Session>();
         }
         if (Lib_File.isExistentAndReadibleBoolean(sessionfile)) {
-            log = (ArrayList) Lib_File.deserializeObjects(sessionfile);
+            log = (ArrayList<Session>) Lib_File.deserialize(sessionfile);
         } else {
             log = new ArrayList<Session>();
         }
@@ -82,7 +82,7 @@ public class Training {
         Lib_Dialog.printMenue(activity);
     }
 
-    public void EditActivity() {
+    public void EditActivity() throws IOException {
         Lib_Dialog.printMenue(activity);
 
         System.out.println("Wich one you desire to edit? :");
@@ -93,9 +93,7 @@ public class Training {
 
         String names = input.nextLine();
 
-        Session session = new Session(names);
-
-        activity.set(menuepunkt - 1, session);
+        activity.get(menuepunkt - 1).setName(names);
 
         log.forEach((p) -> p.setName(names));
 
@@ -109,7 +107,5 @@ public class Training {
         System.out.println("End");
         System.exit(0);
     }
-
-    // TODO fix classcast problem
 
 }
