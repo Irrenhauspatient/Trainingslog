@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Training {
 
     private static ArrayList<Object> activity;
-    private static ArrayList<Object> log;
+    private static ArrayList<Session> log;
 
     private static Scanner input;
     private final static String trainingfile = "Activity.dat";
@@ -18,14 +18,14 @@ public class Training {
 
         input = new Scanner(System.in);
         if (Lib_File.isExistentAndReadibleBoolean(trainingfile)) {
-            activity = Lib_File.deserializeObjects(trainingfile);
+            activity = (ArrayList<Object>) Lib_File.deserializeObjects(trainingfile);
         } else {
             activity = new ArrayList<Object>();
         }
         if (Lib_File.isExistentAndReadibleBoolean(sessionfile)) {
-            log = Lib_File.deserializeObjects(sessionfile);
+            log = (ArrayList<Session>) Lib_File.deserializeObjects(sessionfile);
         } else {
-            log = new ArrayList<Object>();
+            log = new ArrayList<Session>();
         }
 
     }
@@ -89,6 +89,12 @@ public class Training {
         int option = input.nextInt();
 
         System.out.print("\nEnter new Name:");
+        String name = input.nextLine();
+        Session session = new Session(name);
+
+        activity.remove(option - 1);
+        log.forEach((p) -> p.setName(name));
+
         // TODO: find a idea to rename or replace the object
     }
 
