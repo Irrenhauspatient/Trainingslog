@@ -1,3 +1,5 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Lib_String {
 
@@ -26,6 +28,22 @@ public class Lib_String {
         string = string.stripLeading();
         string = string.replaceAll("\\s+", " ");
         return string;
+    }
+
+    public static String menueToMethod(String string) {
+
+        String patternstring = "regex";
+        Pattern pattern = Pattern.compile(patternstring);
+        Matcher matcher = pattern.matcher(string);
+        String stringbuffer = string.replace(matcher.toString(), matcher.toString().toLowerCase());
+
+        String patternstring1 = "regex1";
+        Pattern pattern1 = Pattern.compile(patternstring1);
+        Matcher matcher1 = pattern1.matcher(string);
+        String stringformethod = stringbuffer.replace(matcher1.toString(), matcher1.toString().toUpperCase());
+
+        return stringformethod;
+
     }
 
     /**
