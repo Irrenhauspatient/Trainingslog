@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Training {
+public class Activity {
 
     private static ArrayList<Session> activity;
     private static ArrayList<Session> log;
@@ -32,9 +32,9 @@ public class Training {
 
     public static void main(String[] args) throws Exception {
 
-        new Training().start();
+        new Activity().start();
 
-        String className = "Training";
+        String className = "Activity";
         ArrayList<String> menue = new ArrayList<String>();
 
         menue.add("Add Activity");
@@ -83,9 +83,12 @@ public class Training {
         int option = Lib_Dialog.chooseOption();
 
         log.forEach((p) -> {
-            if (p.getName().equals(activity.get(option - 1).getName())) {
-                System.out.println(p.toString());
-            } // TODO test this
+            if (activity.get(option - 1).getName().equals(p.getName())) {
+                System.out
+                        .println(String.format("%s %s %s %s", p.getName(), p.getDate(), p.getDuration(), p.getTime()));
+            }
+
+            // TODO test this
         });
 
     }
