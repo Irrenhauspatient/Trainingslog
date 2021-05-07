@@ -65,7 +65,8 @@ public class Activity {
 
         Session session = new Session(activity.get(option - 1).toString());
         session.setDate(LocalDate.now().toString());
-        session.setTime(LocalTime.now().toString());
+        session.setTime(LocalTime.now().toString().replaceAll(
+                "(" + Lib_Regex.LOOKBEHIND + Lib_Regex.HOURMINUTESECOND + ")" + Lib_Regex.ALLCHARACTERS, ""));
 
         System.out.print("Unit:");
         session.setUnit(input.nextLine());
@@ -84,8 +85,8 @@ public class Activity {
 
         log.forEach((p) -> {
             if (activity.get(option - 1).getName().equals(p.getName())) {
-                System.out
-                        .println(String.format("%s %s %s %s", p.getName(), p.getDate(), p.getDuration(), p.getTime()));
+                System.out.println(String.format("Name: %s Date: %s Time: %s Duration: %s %s", p.getName(), p.getDate(),
+                        p.getTime(), p.getDuration(), p.getUnit()));
             }
 
             // TODO test this
