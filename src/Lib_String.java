@@ -32,20 +32,18 @@ public class Lib_String {
 
     public static String menueToMethod(String string) {
 
-        String patternstring = "regex";
-        Pattern pattern = Pattern.compile(patternstring);
-        Matcher matcher = pattern.matcher(string);
-        String stringbuffer = string.replace(matcher.toString(), matcher.toString().toLowerCase());
+        String[] replacement = string.split("\\s");
+        StringBuilder sb = new StringBuilder();
 
-        String patternstring1 = "regex1";
-        Pattern pattern1 = Pattern.compile(patternstring1);
-        Matcher matcher1 = pattern1.matcher(string);
-        String stringformethod = stringbuffer.replace(matcher1.toString(), matcher1.toString().toUpperCase());
+        sb.append(replacement[0].toLowerCase());
 
-        return stringformethod;
+        for (int i = 1; i < replacement.length; i++) {
 
-        // TODO: done this
+            sb.append(replacement[i].substring(0, 1).toUpperCase());
+            sb.append(replacement[i].substring(1, replacement[i].length()).toLowerCase());
 
+        }
+        return sb.toString();
     }
 
     /**

@@ -47,7 +47,7 @@ public class Activity {
 
     }
 
-    public void AddActivity() throws ClassNotFoundException, IOException {
+    public void addActivity() throws ClassNotFoundException, IOException {
 
         System.out.print("\nName of Activity: ");
         String name = input.nextLine();
@@ -58,7 +58,7 @@ public class Activity {
         Lib_File.serialize(activity, activityfile);
     }
 
-    public void LogActivity() throws IOException {
+    public void logActivity() throws IOException {
 
         Lib_Dialog.printMenue(activity);
         int option = Lib_Dialog.chooseOption();
@@ -79,7 +79,7 @@ public class Activity {
         Lib_File.serialize(log, sessionfile);
     }
 
-    public void ShowActivityLog() {
+    public void showActivityLog() {
         Lib_Dialog.printMenue(activity);
         int option = Lib_Dialog.chooseOption();
 
@@ -94,7 +94,7 @@ public class Activity {
 
     }
 
-    public void EditActivity() throws IOException {
+    public void editActivity() throws IOException {
         Lib_Dialog.printMenue(activity);
 
         System.out.println("Wich one you desire to edit? :");
@@ -111,7 +111,7 @@ public class Activity {
 
     }
 
-    public void Exit() throws IOException {
+    public void exit() throws IOException {
 
         Lib_File.serialize(activity, activityfile);
         Lib_File.serialize(log, sessionfile);
