@@ -88,25 +88,18 @@ public class Activity {
                 System.out.println(String.format("Name: %s Date: %s Time: %s Duration: %s %s", p.getName(), p.getDate(),
                         p.getTime(), p.getDuration(), p.getUnit()));
             }
-
-            // TODO test this
         });
 
     }
 
     public void editActivity() throws IOException {
+
         Lib_Dialog.printMenue(activity);
-
         System.out.println("Wich one you desire to edit? :");
-
         int menuepunkt = Lib_Dialog.chooseOption();
-
         System.out.println("Enter new Name:");
-
         String names = input.nextLine();
-
         activity.get(menuepunkt - 1).setName(names);
-
         log.forEach((p) -> p.setName(names));
 
     }

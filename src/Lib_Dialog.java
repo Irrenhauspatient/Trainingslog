@@ -67,7 +67,7 @@ public class Lib_Dialog {
 
     public static int chooseOption() {
 
-        System.out.print("\nBitte wählen sie eine Option\n");
+        System.out.print("\nPlease choose a Option\n");
         return input.nextInt();
     }
 
