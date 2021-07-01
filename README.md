@@ -1,5 +1,7 @@
 ## Log it
 
+### under progress
+
 This will be a Software that allows you to Log your activities, safe them, and later to analyze your afford.
 
 ## Folder Structure
